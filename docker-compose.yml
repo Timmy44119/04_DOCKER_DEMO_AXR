@@ -5,7 +5,7 @@ networks:
     external: true
 
 services:
-  tomcat:
+  ta-tomcat:
     image: "toolapp-axelor/tomcat"
     build:
       context: ".docker"
