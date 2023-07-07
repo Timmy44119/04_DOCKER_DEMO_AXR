@@ -6,16 +6,25 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/*
 
 # Installation de axelor et de docgen
-RUN git clone https://github.com/Timmy44119/avr-docgen.git /axelor-source
+RUN mkdir -p /axelor-source && \
+    cd /axelor-source && \
+    git clone https://github.com/Timmy44119/avr-docgen.git axelor-erp && \
+    sed -e 's|git@github.com:|https://github.com/|' -i axelor-erp/.gitmodules && \
+    cd axelor-erp && \
+    git submodule sync && \
+    git submodule init && \
+    git submodule update && \
+    git submodule foreach git checkout master && \
+    git submodule foreach git pull origin master \
 
 # Lancement du build du WAR
-RUN cd /axelor-source && \
+RUN cd /axelor-source/axelor-erp && \
     ./gradlew -x test build
 
 FROM  tomcat:9.0-jdk11-openjdk
 
 # Scripts d'init, config et WAR Applicatif
-COPY --from=BUILDER /axelor-source/build/libs/axelor-erp-*.war /usr/local/tomcat/webapps/ROOT.war
+COPY --from=BUILDER /axelor-source/axelor-erp/build/libs/axelor-erp-*.war /tmp/ROOT.war
 COPY scripts/docker-entrypoint.sh /
 COPY scripts/docker-entrypoint.d/* /docker-entrypoint.d/
 COPY conf/axelor-config.properties /usr/local/tomcat/axelor-config.properties
@@ -25,4 +34,4 @@ RUN apt-get update && \
     apt-get install -y postgresql-client && \
     rm -rf /var/lib/apt/lists/*
 
-#ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]

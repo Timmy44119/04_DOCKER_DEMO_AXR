@@ -2,4 +2,5 @@
 
 echo "Start Tomcat / Axelor"
 
+cp /tmp/ROOT.war /usr/local/tomcat/webapps/ROOT.war
 catalina.sh run

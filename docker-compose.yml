@@ -30,8 +30,11 @@ services:
       LETSENCRYPT_HOST: "${INSTANCE_HTTP}"
       #     - LETSENCRYPT_EMAIL=${ADMIN_EMAIL}
       SERVER_HOST: "psql"
+      SERVER_PORT: "5432"
       SERVER_ADMIN_LOGIN: "timmy"
       SERVER_ADMIN_PASS: "Toolapp44119!"
       TARGET_DB_NAME: "${INSTANCE_NAME}_axr"
       TARGET_USER: "toolapp"
       TARGET_PASS: "Toolapp44!"
+    networks:
+      - timmy-network
