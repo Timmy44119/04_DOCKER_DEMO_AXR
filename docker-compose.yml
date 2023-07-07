@@ -27,7 +27,7 @@ services:
       #     - VIRTUAL_PORT=80
       LETSENCRYPT_HOST: "${INSTANCE_HTTP}"
       #     - LETSENCRYPT_EMAIL=${ADMIN_EMAIL}
-      SERVER_HOST: "psql"
+      SERVER_HOST: "postgres_central"
       SERVER_PORT: "5432"
       SERVER_ADMIN_LOGIN: "timmy"
       SERVER_ADMIN_PASS: "Toolapp44119!"
