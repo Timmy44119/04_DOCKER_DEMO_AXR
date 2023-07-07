@@ -14,8 +14,8 @@ RUN mkdir -p /axelor-source && \
     git submodule sync && \
     git submodule init && \
     git submodule update && \
-    git submodule foreach git checkout master && \
-    git submodule foreach git pull origin master \
+    git submodule foreach git checkout v7.0.0 && \
+    git submodule foreach git pull origin v7.0.0 \
 
 # Lancement du build du WAR
 RUN cd /axelor-source/axelor-erp && \

@@ -1,17 +1,15 @@
 version: "3.9"
 networks:
-  timmy-network:
-    name: timmy-network
+  nginx-proxy:
+    name: nginx-proxy
     external: true
 
 services:
-  tomcat-instance1:
-    image: "test_vga"
+  tomcat:
+    image: "toolapp-axelor/tomcat"
     build:
       context: ".docker"
     volumes:
-#        - "./docker-entrypoint.d:/tmp/docker-entrypoint.d"
-#        - "./docker-entrypoint.sh:/docker-entrypoint-initdb.d/docker-entrypoint.sh"
         - "./XX_DATA/var/lib/tomcat:/var/lib/tomcat"
         - "./XX_DATA/var/log/tomcat:/var/log/tomcat"
         - "./XX_DATA/usr/local/tomcat/upload:/usr/local/tomcat/upload"
@@ -37,4 +35,4 @@ services:
       TARGET_USER: "toolapp"
       TARGET_PASS: "Toolapp44!"
     networks:
-      - timmy-network
+      - nginx-proxy
