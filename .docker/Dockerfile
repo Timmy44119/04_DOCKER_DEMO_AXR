@@ -8,14 +8,18 @@ RUN apt-get update && \
 # Installation de axelor et de docgen
 RUN mkdir -p /axelor-source && \
     cd /axelor-source && \
-    git clone https://github.com/Timmy44119/avr-docgen.git axelor-erp && \
+    git clone https://github.com/axelor/open-suite-webapp.git axelor-erp && \
     sed -e 's|git@github.com:|https://github.com/|' -i axelor-erp/.gitmodules && \
     cd axelor-erp && \
+    git checkout master && \
     git submodule sync && \
     git submodule init && \
     git submodule update && \
-    git submodule foreach git checkout v7.0.0 && \
-    git submodule foreach git pull origin v7.0.0 \
+    git submodule foreach git checkout master && \
+    git submodule foreach git pull origin master
+
+COPY conf/build.gradle /axelor-source/axelor-erp/build.gradle
+COPY conf/gradle.properties /axelor-source/axelor-erp/gradle.properties
 
 # Lancement du build du WAR
 RUN cd /axelor-source/axelor-erp && \
