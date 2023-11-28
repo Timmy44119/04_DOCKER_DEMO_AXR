@@ -16,14 +16,16 @@ RUN mkdir -p /axelor-source && \
     git submodule init && \
     git submodule update && \
     git submodule foreach git checkout master && \
-    git submodule foreach git pull origin master
+    git submodule foreach git pull origin master && \
+    rm -f /axelor-source/axelor-erp/build.gradle && \
+    rm -f /axelor-source/axelor-erp/gradle.properties
 
 COPY conf/build.gradle /axelor-source/axelor-erp/build.gradle
 COPY conf/gradle.properties /axelor-source/axelor-erp/gradle.properties
 
 # Lancement du build du WAR
 RUN cd /axelor-source/axelor-erp && \
-    ./gradlew -x test build
+    ./gradlew  clean build -x test
 
 FROM  tomcat:9.0-jdk11-openjdk
 

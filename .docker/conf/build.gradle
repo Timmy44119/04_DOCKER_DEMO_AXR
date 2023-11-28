@@ -6,7 +6,7 @@ plugins {
   id 'com.axelor.app'
 }
 
-ext.openSuiteVersion = '7.1.1'
+ext.openSuiteVersion = '7.2.3'
 
 def repos = {
   mavenCentral() {
@@ -43,7 +43,7 @@ allprojects {
   apply plugin: 'eclipse'
 
   group = 'com.axelor.apps'
-  version = '7.1.1'
+  version = '7.2.3'
 
   java {
     toolchain {
@@ -68,9 +68,11 @@ allprojects {
 tasks.withType(PublishToMavenRepository).configureEach { it.enabled = false }
 
 dependencies {
-  implementation "com.axelor.apps:axelor-base:${openSuiteVersion}"
-  implementation "com.axelor.apps.enterprise:axelor-production-pro:6.0.0-SNAPSHOT"
-  
+//  implementation "com.axelor.apps:axelor-base:${openSuiteVersion}"
+//  implementation "com.axelor.apps:axelor-production:${openSuiteVersion}"
+  implementation "com.axelor.apps.enterprise:axelor-production-pro:7.1"
+  implementation "com.axelor.apps.enterprise:axelor-project-scheduler:7.0"
+
   gradle.appModules.each { dir ->
     implementation project(":modules:$dir.name")
   }
